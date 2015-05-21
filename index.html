@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>show posts</title>
+  <link rel="stylesheet" href="bootstrap.min.css">
+</head>
+<body ng-controller="RegistrerController">
+ <nav class="navbar navbar-default">
+  <div class="container container-fluid">
+    <ul class="nav navbar-nav">
+      <li class="navbar-brand">
+        <span class="glyphicon glyphicon-film" style="color: #2b669a"></span>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+  <h2>Fyll ut feltene under:</h2>
+  <form role="form" ng-submit="settInn()">
+    <div class="form-group">
+      <label for="fornavn">Fornavn:</label>
+      <input type="text" class="form-control" ng-model="inpFornavn" id="fornavn" placeholder="Skriv inn fornavn">
+    </div>
+    <div class="form-group">
+      <label for="etternavn">Etternavn:</label>
+      <input type="text" class="form-control" ng-model="inpEtternavn" id="etternavn" placeholder="Skriv inn etternavn">
+    </div>
+    <div class="form-group">
+      <label for="adresse">Adresse:</label>
+      <input type="text" class="form-control" ng-model="inpAdresse" id="adresse" placeholder="Srkiv inn adresse">
+    </div>
+    <div class="form-group">
+      <label for="post-nr">Postnr:</label>
+      <input type="number" class="form-control" ng-model="inpPostNr" id="post-nr" placeholder="Skriv inn postnr" maxlength="4" size="4">
+    </div>
+    <div class="form-group">
+      <label for="mobilnr">Telefonnr:</label>
+      <input type="number" class="form-control" ng-model="inpMobilNr" id="mobilnr" placeholder="Skriv inn telefonnummer" maxlength="8">
+    </div>
+    <button type="submit" class="btn btn-default">Send</button>
+  </form>
+</div>
+
+<script src="angular.min.js"></script>
+<script>
+  var myApp = angular.module("myApp", []);
+
+  myApp.controller("RegistrerController", function($scope, $http){
+
+    $scope.settInn = function() {
+      $http.get("registrer.php", {
+        params: {
+          'fornavn' : $scope.inpFornavn,
+          'etternavn' : $scope.inpEtternavn,
+          'adresse' : $scope.inpAdresse,
+          'post_nr' : $scope.inpPostNr,
+          'telefon_nr' : $scope.inpMobilNr
+        }
+      }).success(function(){
+          //do somthing
+      });
+    };
+  });
+</script>
+
+</body>
+</html>
